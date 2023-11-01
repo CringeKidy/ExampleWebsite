@@ -36,6 +36,9 @@
 
 <script>
 export default {
-    name: "AboutView"
+    name: "AboutView",
+    computed() {
+        return this.$store.getters.getData;
+    }
 }
 </script>

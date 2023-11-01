@@ -77,3 +77,12 @@ a {
   margin-right: 10px;
 }
 </style>
+
+<script>
+export default {
+  computed() {
+    this.$store.dispatch('fetchData')
+  }
+}
+
+</script>
