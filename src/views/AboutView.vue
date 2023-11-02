@@ -28,6 +28,17 @@
 
         <div class="meetTeam">
             <h1>Meet the team</h1>
+            <ul>
+                <li v-for="(person, key) in people.results" :key="key">
+                    <div>
+                        <img :src="require(`@/pepData/images/4.jpg`)" />
+                        <p>Name: {{ person.name.first }} {{ person.name.last }}</p>
+                        <p>Gender: {{ person.gender }}</p>
+                        <p>Email: {{ person.email }}</p>
+                        <p>username {{ person.login.username }}</p>
+                    </div>
+                </li>
+            </ul>
         </div>
 
 
@@ -35,10 +46,26 @@
 </template>
 
 <script>
+const peopleJson = require('../pepData/people.json')
+
 export default {
     name: "AboutView",
-    computed() {
-        return this.$store.getters.getData;
+    data() {
+        return {
+            people: []
+        }
+    },
+    mounted() {
+        this.people = peopleJson
+    },
+    methods: {
+        getImage(url) {
+            console.log("got it" + url)
+            console.log(`${__dirname}src/pepData/images/4.jpg`)
+
+            const file = "H:/Utils/Projects/ExampleForGigs/example-webiste/src/pepData/images/4.jpg"
+            return file
+        }
     }
 }
 </script>
