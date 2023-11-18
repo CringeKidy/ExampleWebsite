@@ -26,24 +26,55 @@
             purus gravida quis blandit. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Sit amet
             porttitor eget dolor morbi. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel.</p>
 
-        <div class="meetTeam">
+        <div class="teamHeader">
             <h1>Meet the team</h1>
-            <ul>
-                <li v-for="(person, key) in people.results" :key="key">
-                    <div>
-                        <img :src="require(`@/pepData/images/4.jpg`)" />
-                        <p>Name: {{ person.name.first }} {{ person.name.last }}</p>
-                        <p>Gender: {{ person.gender }}</p>
-                        <p>Email: {{ person.email }}</p>
-                        <p>username {{ person.login.username }}</p>
-                    </div>
-                </li>
-            </ul>
+            <h4>Data Provided by <a href="https://randomuser.me" target="about:blank"
+                    style="color:blue; text-decoration: underline;">randomuser.me</a> so information is not correct please
+                dont try and call/email them</h4>
+        </div>
+        <div class="meetTeam">
+            <div class="teamMember" v-for="(person, key) in people.results" :key="key">
+                <img :src="getImage(person.picture.thumbnail)" />
+                <p>Hey there my Name is: {{ person.name.first }} {{ person.name.last }}</p>
+                <p>I am {{ person.dob.age }} years of age</p>
+                <p>And im from {{ person.location.country }}</p>
+                <button @click="email(person.email)" alt="my email is {{ person.email }}">📧</button>
+                <button @click="phone(person.cell)" alt="my Phone number is {{ person.cell }}">📞</button>
+            </div>
+
         </div>
 
 
     </div>
 </template>
+
+<style>
+.teamHeader {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.meetTeam {
+    column-count: 3;
+    column-gap: 20px;
+}
+
+.meetTeam div {
+    break-inside: avoid-column;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.meetTeam p {
+    text-align: center;
+}
+
+.teamMember {
+    background-color: grey;
+}
+</style>
+
 
 <script>
 const peopleJson = require('../pepData/people.json')
@@ -59,12 +90,18 @@ export default {
         this.people = peopleJson
     },
     methods: {
-        getImage(url) {
-            console.log("got it" + url)
-            console.log(`${__dirname}src/pepData/images/4.jpg`)
+        getImage(ImageName) {
+            ImageName = ImageName.split('/')
+            ImageName = ImageName[ImageName.length - 1]
 
-            const file = "H:/Utils/Projects/ExampleForGigs/example-webiste/src/pepData/images/4.jpg"
+            const file = require(`D:/LaptopProjects/ExampleWebsite/src/pepData/images/${ImageName}`)
             return file
+        },
+        phone(phone) {
+            window.location.href = `tel:${phone}`;
+        },
+        email(email) {
+            window.location.href = `mailto:${email}`;
         }
     }
 }
