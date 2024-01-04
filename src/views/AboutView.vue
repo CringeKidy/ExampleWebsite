@@ -94,7 +94,8 @@ export default {
             ImageName = ImageName.split('/')
             ImageName = ImageName[ImageName.length - 1]
 
-            const file = require(`D:/LaptopProjects/ExampleWebsite/src/pepData/images/${ImageName}`)
+            console.log(__dirname)
+            const file = require(`../pepData/images/${ImageName}`)
             return file
         },
         phone(phone) {
